@@ -649,49 +649,63 @@ export default function App() {
                 <p className="font-bold opacity-80 text-lg">השאירו פרטים ושרון יחזור אליכם</p>
               </div>
               <form
-<form name="contact" method="POST" netlify>
-  <p>
-    <label>Your Name: <input type="text" name="name" /></label>
-  </p>
-  <p>
-    <label>Your Email: <input type="email" name="email" /></label>
-  </p>
-  <p>
-    <label>Your Role: <select name="role[]" multiple>
-      <option value="leader">Leader</option>
-      <option value="follower">Follower</option>
-    </select></label>
-  </p>
-  <p>
-    <label>Message: <textarea name="message"></textarea></label>
-  </p>
-  <p>
-    <button type="submit">Send</button>
-  </p>
-</form>
-  }}>
-  <input type="hidden" name="form-name" value="contact" /> 
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                className="p-10 space-y-6 text-right"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  
+                  const form = e.target as HTMLFormElement;
+                  const formData = new FormData(form);
+
+                  try {
+                    const response = await fetch('/__forms.html', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                      body: new URLSearchParams(formData as any).toString(),
+                    });
+
+                    if (response.ok) {
+                      alert('הפנייה נשלחה בהצלחה!');
+                      form.reset();
+                      setIsOrderModalOpen(false);
+                    } else {
+                      alert('אירעה שגיאה, אנא נסו שוב.');
+                    }
+                  } catch (error) {
+                    alert('אירעה שגיאה, אנא נסו שוב.');
+                  }
+                }}
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p style={{ display: 'none' }}>
+                  <label>
+                    Don't fill this out: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">שם מלא</label>
-               <input type="text" name="name" <input type="tel" name="phone" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
+                  <input type="text" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
                 </div>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">מספר טלפון</label>
-                  <input type="tel" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg text-left font-mono" placeholder="050-000-0000" />
+                  <input type="tel" name="phone" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg text-left font-mono" placeholder="050-000-0000" />
                 </div>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">סוג העבודה</label>
-                  <select className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg appearance-none cursor-pointer">
-                    <option>תיקוני הנדימן כלליים</option>
-                    <option>וילונות PVC לעסקים</option>
-                    <option>הרכבת רהיטים / מטבחים</option>
-                    <option>שפכטל וצבע</option>
-                    <option>תיקון רשתות</option>
-                    <option>אחר...</option>
+                  <select name="service" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg appearance-none cursor-pointer">
+                    <option value="תיקוני הנדימן כלליים">תיקוני הנדימן כלליים</option>
+                    <option value="וילונות PVC לעסקים">וילונות PVC לעסקים</option>
+                    <option value="הרכבת רהיטים / מטבחים">הרכבת רהיטים / מטבחים</option>
+                    <option value="שפכטל וצבע">שפכטל וצבע</option>
+                    <option value="תיקון רשתות">תיקון רשתות</option>
+                    <option value="אחר...">אחר...</option>
                   </select>
                 </div>
                 <div className="flex items-center gap-3 mr-2 group cursor-pointer select-none">
-                  <input type="checkbox" id="spam-consent" className="w-5 h-5 accent-amber-500 rounded cursor-pointer" defaultChecked />
+                  <input type="checkbox" name="consent" id="spam-consent" className="w-5 h-5 accent-amber-500 rounded cursor-pointer" defaultChecked />
                   <label htmlFor="spam-consent" className="text-sm text-slate-500 font-bold cursor-pointer hover:text-slate-900 transition-colors">
                     אני מאשר קבלת הצעות ועדכונים משרון אחזקות (ניתן להסרה בכל עת)
                   </label>
