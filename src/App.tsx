@@ -658,29 +658,47 @@ export default function App() {
                 <h3 className="text-4xl font-black mb-2 tracking-tighter">הזמנת עבודה</h3>
                 <p className="font-bold opacity-80 text-lg">השאירו פרטים ושרון יחזור אליכם</p>
               </div>
-              <form className="p-10 space-y-6" name="contact" method="POST" data-netlify="true" onSubmit={(e) => { e.preventDefault(); setIsOrderModalOpen(false); }}>
-                <input type="hidden" name="form-name" value="contact" /> 
+              <form className="p-10 space-y-6" name="contact" method="POST" data-netlify="true" onSubmit={async (e) => { 
+                e.preventDefault(); 
+                const formData = new FormData(e.currentTarget);
+                try {
+                  await fetch('/__forms.html', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(formData as any).toString(),
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+                setIsOrderModalOpen(false); 
+              }}>
+                <input type="hidden" name="form-name" value="contact" />
+                <p style={{ display: 'none' }}>
+                  <label>
+                    Don't fill this out: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">שם מלא</label>
                   <input type="text" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
                 </div>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">מספר טלפון</label>
-                  <input type="tel" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg text-left font-mono" placeholder="050-000-0000" />
+                  <input type="tel" name="phone" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg text-left font-mono" placeholder="050-000-0000" />
                 </div>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">סוג העבודה</label>
-                  <select className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg appearance-none cursor-pointer">
-                    <option>תיקוני הנדימן כלליים</option>
-                    <option>וילונות PVC לעסקים</option>
-                    <option>הרכבת רהיטים / מטבחים</option>
-                    <option>שפכטל וצבע</option>
-                    <option>תיקון רשתות</option>
-                    <option>אחר...</option>
+                  <select name="jobType" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg appearance-none cursor-pointer">
+                    <option value="תיקוני הנדימן כלליים">תיקוני הנדימן כלליים</option>
+                    <option value="וילונות PVC לעסקים">וילונות PVC לעסקים</option>
+                    <option value="הרכבת רהיטים / מטבחים">הרכבת רהיטים / מטבחים</option>
+                    <option value="שפכטל וצבע">שפכטל וצבע</option>
+                    <option value="תיקון רשתות">תיקון רשתות</option>
+                    <option value="אחר...">אחר...</option>
                   </select>
                 </div>
                 <div className="flex items-center gap-3 mr-2 group cursor-pointer select-none">
-                  <input type="checkbox" id="spam-consent" className="w-5 h-5 accent-amber-500 rounded cursor-pointer" defaultChecked />
+                  <input type="checkbox" name="spamConsent" id="spam-consent" className="w-5 h-5 accent-amber-500 rounded cursor-pointer" defaultChecked />
                   <label htmlFor="spam-consent" className="text-sm text-slate-500 font-bold cursor-pointer hover:text-slate-900 transition-colors">
                     אני מאשר קבלת הצעות ועדכונים משרון אחזקות (ניתן להסרה בכל עת)
                   </label>
@@ -689,8 +707,7 @@ export default function App() {
                   שלח הזמנה לשרון
                   <CheckCircle2 className="w-8 h-8 text-amber-500 group-hover:scale-110 transition-transform" />
                 </button>
-              </form>
-            </motion.div>
+              </form>            </motion.div>
           </div>
         )}
       </AnimatePresence>
