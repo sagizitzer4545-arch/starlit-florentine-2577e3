@@ -648,14 +648,17 @@ export default function App() {
                 <h3 className="text-4xl font-black mb-2 tracking-tighter">הזמנת עבודה</h3>
                 <p className="font-bold opacity-80 text-lg">השאירו פרטים ושרון יחזור אליכם</p>
               </div>
-              <form 
-                className="p-10 space-y-6 text-right" 
-                onSubmit={(e) => { 
-                  e.preventDefault(); 
-                  alert('ההזמנה נשלחה בהצלחה! שרון יחזור אליך בהקדם לתיאום.'); 
-                  setIsOrderModalOpen(false); 
-                }}
-              >
+              <form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  className="p-10 space-y-6 text-right"
+  onSubmit={(e) => {
+    e.preventDefault();
+    alert('...');
+    setIsOrderModalOpen(false);
+  }}>
+  <input type="hidden" name="form-name" value="contact" /> 
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">שם מלא</label>
                   <input type="text" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
