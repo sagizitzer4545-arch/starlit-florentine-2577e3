@@ -217,12 +217,22 @@ export default function App() {
                     <div className="w-20 h-1.5 bg-amber-500 mx-auto rounded-full mt-4"></div>
                   </div>
                   
-                  <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
-                    <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Paintbrush className="w-10 h-10 text-amber-500" />
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-2">תמונות מעבודות אחרונות יעלו בקרוב</h3>
-                    <p className="text-slate-500 font-bold">אנחנו מעדכנים את תיק העבודות שלנו עם הפרויקטים החדשים ביותר.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-right">
+                    <PortfolioCard 
+                      category="עבודות אחזקה" 
+                      title="תיקונים והתקנות" 
+                      image="/portfolio/041b3f20-28e7-41f9-8e23-36647c75d63a.JPG" 
+                    />
+                    <PortfolioCard 
+                      category="עבודות אחזקה" 
+                      title="תיקונים והתקנות" 
+                      image="/portfolio/991f7b21-cdd7-4139-b4bb-7b51bf8929e7.JPG" 
+                    />
+                    <PortfolioCard 
+                      category="עבודות אחזקה" 
+                      title="תיקונים והתקנות" 
+                      image="/portfolio/ec2f02b4-7725-44e7-8512-2afdf34421d2.JPG" 
+                    />
                   </div>
                 </div>
               </section>
@@ -656,7 +666,7 @@ export default function App() {
                 className="p-10 space-y-6 text-right"
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  
+
                   const form = e.target as HTMLFormElement;
                   const formData = new FormData(form);
 
