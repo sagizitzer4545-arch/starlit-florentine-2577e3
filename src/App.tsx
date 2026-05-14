@@ -217,12 +217,22 @@ export default function App() {
                     <div className="w-20 h-1.5 bg-amber-500 mx-auto rounded-full mt-4"></div>
                   </div>
                   
-                  <div className="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
-                    <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Paintbrush className="w-10 h-10 text-amber-500" />
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-2">תמונות מעבודות אחרונות יעלו בקרוב</h3>
-                    <p className="text-slate-500 font-bold">אנחנו מעדכנים את תיק העבודות שלנו עם הפרויקטים החדשים ביותר.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-right">
+                    <PortfolioCard 
+                      category="עבודות אחזקה" 
+                      title="תיקונים והתקנות" 
+                      image="/portfolio/041b3f20-28e7-41f9-8e23-36647c75d63a.JPG" 
+                    />
+                    <PortfolioCard 
+                      category="עבודות אחזקה" 
+                      title="תיקונים והתקנות" 
+                      image="/portfolio/991f7b21-cdd7-4139-b4bb-7b51bf8929e7.JPG" 
+                    />
+                    <PortfolioCard 
+                      category="עבודות אחזקה" 
+                      title="תיקונים והתקנות" 
+                      image="/portfolio/ec2f02b4-7725-44e7-8512-2afdf34421d2.JPG" 
+                    />
                   </div>
                 </div>
               </section>
@@ -648,32 +658,11 @@ export default function App() {
                 <h3 className="text-4xl font-black mb-2 tracking-tighter">הזמנת עבודה</h3>
                 <p className="font-bold opacity-80 text-lg">השאירו פרטים ושרון יחזור אליכם</p>
               </div>
-              <form
-<form name="contact" method="POST" netlify>
-  <p>
-    <label>Your Name: <input type="text" name="name" /></label>
-  </p>
-  <p>
-    <label>Your Email: <input type="email" name="email" /></label>
-  </p>
-  <p>
-    <label>Your Role: <select name="role[]" multiple>
-      <option value="leader">Leader</option>
-      <option value="follower">Follower</option>
-    </select></label>
-  </p>
-  <p>
-    <label>Message: <textarea name="message"></textarea></label>
-  </p>
-  <p>
-    <button type="submit">Send</button>
-  </p>
-</form>
-  }}>
-  <input type="hidden" name="form-name" value="contact" /> 
+              <form className="p-10 space-y-6" name="contact" method="POST" data-netlify="true" onSubmit={(e) => { e.preventDefault(); setIsOrderModalOpen(false); }}>
+                <input type="hidden" name="form-name" value="contact" /> 
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">שם מלא</label>
-               <input type="text" name="name" <input type="tel" name="phone" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
+                  <input type="text" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
                 </div>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">מספר טלפון</label>
