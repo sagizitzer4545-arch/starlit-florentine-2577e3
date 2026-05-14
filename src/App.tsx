@@ -661,7 +661,7 @@ export default function App() {
   <input type="hidden" name="form-name" value="contact" /> 
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">שם מלא</label>
-                 <input type="text" name="name" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
+               <input type="text" name="name" <input type="tel" name="phone" required className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all font-bold text-lg" placeholder="הכנס את שמך..." />
                 </div>
                 <div>
                   <label className="block text-sm font-black text-slate-500 mb-2 mr-2">מספר טלפון</label>
